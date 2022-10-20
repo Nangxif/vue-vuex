@@ -1,28 +1,30 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    年龄：{{ $store.state.age }}<br />
+    计算年龄：{{ $store.getters.getAge }}<br />
+    <button @click="$store.commit('a/changeAge', 5)">同步更新状态</button>
+    <button @click="$store.dispatch('changeAge', 5)">异步更新状态</button>
+    <!-- {{ $store.state.a.c }}
+    {{ $store.state.b.d }} -->
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import { mapState } from './whole-vuex';
 export default {
   name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+  computed: {
+    // 上下同理
+    ...mapState(['age']),
+    // age() {
+    //   return this.$store.state.age;
+    // },
+  },
+  methods: {
+    // ...mapMutations原理
+    changeAge(payload) {
+      this.$store.commit('changeAge', payload);
+    },
+  },
+};
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
