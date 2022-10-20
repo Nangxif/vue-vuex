@@ -38,20 +38,22 @@ let store = new Vuex.Store({
     // vue中的方法，唯一可以改状态的方法
     // 更改状态的方式必须是同步的
     changeAge(state, payload) {
-      state.age += payload;
+      // state.age += payload;
       // 如果我在mutation里面写了异步的逻辑就会报错
-      // setTimeout(() => {
-      //   // 此时this._committing为false
-      //   state.age += payload;
-      // }, 1000);
+      setTimeout(() => {
+        // 此时this._committing为false
+        state.age += payload;
+      }, 1000);
     },
   },
   actions: {
     // 通过action中发起请求
     // 所有的异步操作在action中
-    changeAge({ commit }) {
+    changeAge({ state,commit }) {
       setTimeout(() => {
-        commit('changeAge', 10);
+        state.age += 1;
+
+        // commit('changeAge', 10);
       }, 3000);
     },
   },
@@ -61,6 +63,11 @@ let store = new Vuex.Store({
       state: {
         c: 100,
       },
+      getters: {
+        getAge(state) {
+          return state.c + 20;
+        },
+      },
       mutations: {
         changeAge(state, payload) {
           console.log('c更新');
@@ -68,7 +75,7 @@ let store = new Vuex.Store({
       },
     },
     b: {
-      namespaced: true,
+      // namespaced: true,
       state: {
         d: 100,
       },

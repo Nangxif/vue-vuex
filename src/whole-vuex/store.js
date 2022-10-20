@@ -119,7 +119,6 @@ class Store {
     // 将状态放到vue的实例中
     // 增加响应式效果
     resetStoreVm(this, state);
-
     options.plugins.forEach((plugin) => plugin(this));
     // 用户传递过来的状态
     // let state = options.state;

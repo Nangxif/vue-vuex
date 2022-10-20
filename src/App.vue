@@ -2,8 +2,9 @@
   <div id="app">
     年龄：{{ $store.state.age }}<br />
     计算年龄：{{ $store.getters.getAge }}<br />
-    <button @click="$store.commit('a/changeAge', 5)">同步更新状态</button>
+    <button @click="$store.commit('changeAge', 5)">同步更新状态</button>
     <button @click="$store.dispatch('changeAge', 5)">异步更新状态</button>
+    <button @click="$store.state.age += 1">不合规的方法更新状态</button>
     <!-- {{ $store.state.a.c }}
     {{ $store.state.b.d }} -->
   </div>
